@@ -2,54 +2,47 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class Menu extends JFrame {
 
-    public JLabel souvenirsLabel = new JLabel("Souvenirs", JLabel.CENTER);
-    public JLabel sIdLabel = new JLabel("id: ", JLabel.LEFT);
-    public JTextField sId = new JTextField(10);
-    public JLabel sNameLabel = new JLabel("name: ");
-    public JTextField sName = new JTextField(10);
-    public JLabel sManDetailsLabel = new JLabel("manufacturer's details: ");
-    public JTextField sManDetails = new JTextField(10);
-    public JLabel sReleaseDateLabel = new JLabel("release year: ");
-    public JTextField sReleaseDate = new JTextField(10);
-    public JLabel sPriceLabel = new JLabel("price: ");
-    public JTextField sPrice = new JTextField(10);
+    private final JLabel souvenirsLabel = new JLabel("Souvenirs", JLabel.CENTER);
+    private final JLabel sIdLabel = new JLabel("id: ");
+    private final JTextField sId = new JTextField(10);
+    private final JLabel sNameLabel = new JLabel("name: ");
+    private final JTextField sName = new JTextField(10);
+    private final JLabel sManDetailsLabel = new JLabel("manufacturer's details: ");
+    private final JTextField sManDetails = new JTextField(10);
+    private final JLabel sReleaseDateLabel = new JLabel("release year: ");
+    private final JTextField sReleaseDate = new JTextField(10);
+    private final JLabel sPriceLabel = new JLabel("price: ");
+    private final JTextField sPrice = new JTextField(10);
 
-    public JLabel manufacturersLabel = new JLabel("Manufacturers", JLabel.CENTER);
-    public JLabel mIdLabel = new JLabel("id: ");
-    public JTextField mId = new JTextField(10);
-    public JLabel mNameLabel = new JLabel("name: ");
-    public JTextField mName = new JTextField(10);
-    public JLabel mCountryLabel = new JLabel("country: ");
-    public JTextField mCountry = new JTextField(10);
+    private final JLabel manufacturersLabel = new JLabel("Manufacturers", JLabel.CENTER);
+    private final JLabel mIdLabel = new JLabel("id: ");
+    private final JTextField mId = new JTextField(10);
+    private final JLabel mNameLabel = new JLabel("name: ");
+    private final JTextField mName = new JTextField(10);
+    private final JLabel mCountryLabel = new JLabel("country: ");
+    private final JTextField mCountry = new JTextField(10);
 
-    public JButton sRemove = new JButton("Remove");
-    public JButton sEdit = new JButton("Edit");
-    public JButton sAdd = new JButton("Add");
-    public JButton sFind = new JButton("Find");
+    private final JButton sRemove = new JButton("Remove");
+    private final JButton sEdit = new JButton("Edit");
+    private final JButton sAdd = new JButton("Add");
+    private final JButton sFind = new JButton("Find");
 
-    public JButton mRemove = new JButton("Remove");
-    public JButton mEdit = new JButton("Edit");
-    public JButton mAdd = new JButton("Add");
-    public JButton mFind = new JButton("Find");
+    private final JButton mRemove = new JButton("Remove");
+    private final JButton mEdit = new JButton("Edit");
+    private final JButton mAdd = new JButton("Add");
+    private final JButton mFind = new JButton("Find");
 
-    JTable table = new JTable();
-
-    //public JTextField textField;
-
-    Menu(){
-
-    }
+    private final JTable table = new JTable();
 
     public void init(){
         JFrame frame = new JFrame("Менеджер сувенірів та їх виробників");
         JPanel content = new JPanel();
         frame.setSize(1000, 700);
         frame.setContentPane(content);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
         souvenirsLabel.setBounds(160,20,200,20);
@@ -144,7 +137,7 @@ public class Menu extends JFrame {
         return 0;
     }
 
-    public int gerManufacturerID() {
+    public int getManufacturerID() {
         if (mId.getText().isEmpty()){
             displayErrorMessage("Enter ID to find correct item");
         } else {
@@ -174,11 +167,11 @@ public class Menu extends JFrame {
     }
 
     public void addEditManufacturerListener(ActionListener listenToEditManufacturerButton){
-        mRemove.addActionListener(listenToEditManufacturerButton);
+        mEdit.addActionListener(listenToEditManufacturerButton);
     }
 
     public void addAddManufacturerListener(ActionListener listenToAddManufacturerButton){
-        mRemove.addActionListener(listenToAddManufacturerButton);
+        mAdd.addActionListener(listenToAddManufacturerButton);
     }
 
     public void addFindManufacturerListener(ActionListener listenToFindManufacturerButton){

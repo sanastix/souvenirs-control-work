@@ -5,7 +5,6 @@ import org.example.Menu;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class AddManufacturerCommand extends Command {
 
@@ -23,7 +22,7 @@ public class AddManufacturerCommand extends Command {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(manufacturer);
             bufferedWriter.newLine();
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
         return true;

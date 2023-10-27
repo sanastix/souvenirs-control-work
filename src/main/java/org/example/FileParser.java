@@ -19,36 +19,21 @@ public class FileParser {
         this.menu = menu;
     }
 
-    public List<String> readSouvenirsBase(){
-        List<String> souvenirsBase = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(souvenirsDB))) {
-            String line;
-            while ((line = br.readLine()) != null){
-                souvenirsBase.add(line);
-            }
-        } catch (IOException e){
-            menu.displayErrorMessage("Error in reading souvenirs file");
-        }
-
-        return souvenirsBase;
-    }
-
-    public List<List<String>> readSplittedSouvenirsBase (){
-        List<List<String>> splittedSouvenirsBase = new ArrayList<>();
+    public List<List<String>> readSplitSouvenirsBase(){
+        List<List<String>> splitSouvenirsBase = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(souvenirsDB))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
                 List<String> innerList = new ArrayList<>(Arrays.asList(parts));
-                splittedSouvenirsBase.add(new ArrayList<>(innerList));
+                splitSouvenirsBase.add(new ArrayList<>(innerList));
             }
         } catch (IOException e) {
             menu.displayErrorMessage("Error in reading souvenirs file");
         }
 
-        return splittedSouvenirsBase;
+        return splitSouvenirsBase;
     }
 
     public void writeSouvenirsBase(List<List<String>> souvenirsBase){
@@ -64,21 +49,33 @@ public class FileParser {
         }
     }
 
-    public List<ArrayList<String>> readManufacturersBase (){
-        List<ArrayList<String>> manufacturersBase = new ArrayList<>();
+    public List<List<String>> readSplitManufacturersBase() {
+        List<List<String>> splitManufacturersBase = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(manufacturersDB))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
                 List<String> innerList = new ArrayList<>(Arrays.asList(parts));
-                manufacturersBase.add(new ArrayList<>(innerList));
+                splitManufacturersBase.add(new ArrayList<>(innerList));
             }
         } catch (IOException e) {
             menu.displayErrorMessage("Error in reading manufacturers file");
         }
 
-        return manufacturersBase;
+        return splitManufacturersBase;
     }
 
+    public void writeManufacturersBase(List<List<String>> manufacturersBase) {
+        try(FileWriter fileWriter = new FileWriter(manufacturersDB);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            for (List<String> innerList : manufacturersBase) {
+                String joinedString = String.join(":", innerList);
+                bufferedWriter.write(joinedString);
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            menu.displayErrorMessage("Error in writing manufacturers file");
+        }
+    }
 }

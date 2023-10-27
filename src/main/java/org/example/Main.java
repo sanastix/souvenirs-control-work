@@ -14,7 +14,7 @@ public class Main {
         RemoveSouvenirCommand removeS = new RemoveSouvenirCommand(menu);
         RemoveManufacturerCommand removeM = new RemoveManufacturerCommand(menu);
 
-        CommandController controller = new CommandController(addS, addM, editS, editM, removeS, removeM, menu);
+        CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, menu);
 
         menu.init();
 

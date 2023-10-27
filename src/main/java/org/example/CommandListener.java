@@ -5,7 +5,7 @@ import org.example.commands.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CommandController {
+public class CommandListener {
 
     private final AddSouvenirCommand addSouvenirCommand;
     private final AddManufacturerCommand addManufacturerCommand;
@@ -14,9 +14,9 @@ public class CommandController {
     private final RemoveSouvenirCommand removeSouvenirCommand;
     private final RemoveManufacturerCommand removeManufacturerCommand;
 
-    private final Menu menu;
+    private Menu menu;
 
-    public CommandController(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, Menu menu) {
+    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, Menu menu) {
         this.addSouvenirCommand = addSouvenirCommand;
         this.addManufacturerCommand = addManufacturerCommand;
         this.editSouvenirCommand = editSouvenirCommand;
@@ -67,7 +67,7 @@ public class CommandController {
     class EditManufacturerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (editSouvenirCommand.execute()) {
+            if (editManufacturerCommand.execute()) {
                 menu.displayResultMessage("Manufacturer edited");
             } else {
                 menu.displayErrorMessage("Editing error");
