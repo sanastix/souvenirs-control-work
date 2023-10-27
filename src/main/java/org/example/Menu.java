@@ -119,18 +119,27 @@ public class Menu extends JFrame {
 
     public String getSouvenir(){
         if (sId.getText().isEmpty() || sName.getText().isEmpty() || sManDetails.getText().isEmpty() || sReleaseDate.getText().isEmpty() || sPrice.getText().isEmpty()){
-            displayResultMessage("Fill in all information");
+            displayErrorMessage("Fill in all information");
         } else {
             return sId.getText() +":"+ sName.getText() +":"+sManDetails.getText() +":"+ sReleaseDate.getText() +":"+ sPrice.getText();
         }
         return null;
     }
 
-    void addRemoveSouvenirListener(ActionListener listenToRemoveSouvenirButton){
+    public String getManufacturer() {
+        if (mId.getText().isEmpty() || mName.getText().isEmpty() || mCountry.getText().isEmpty()){
+            displayErrorMessage("Fill in all information");
+        } else {
+            return mId.getText() +":"+ mName.getText() +":"+ mCountry.getText();
+        }
+        return null;
+    }
+
+    public void addRemoveSouvenirListener(ActionListener listenToRemoveSouvenirButton){
         sRemove.addActionListener(listenToRemoveSouvenirButton);
     }
 
-    void addEditSouvenirListener(ActionListener listenToEditSouvenirButton){
+    public void addEditSouvenirListener(ActionListener listenToEditSouvenirButton){
         sEdit.addActionListener(listenToEditSouvenirButton);
     }
 
@@ -138,8 +147,24 @@ public class Menu extends JFrame {
         sAdd.addActionListener(listenToAddSouvenirButton);
     }
 
-    void addFindSouvenirListener(ActionListener listenToFindSouvenirListener){
+    public void addFindSouvenirListener(ActionListener listenToFindSouvenirListener){
         sFind.addActionListener(listenToFindSouvenirListener);
+    }
+
+    public void addRemoveManufacturerListener(ActionListener listenToRemoveManufacturerButton){
+        mRemove.addActionListener(listenToRemoveManufacturerButton);
+    }
+
+    public void addEditManufacturerListener(ActionListener listenToEditManufacturerButton){
+        mRemove.addActionListener(listenToEditManufacturerButton);
+    }
+
+    public void addAddManufacturerListener(ActionListener listenToAddManufacturerButton){
+        mRemove.addActionListener(listenToAddManufacturerButton);
+    }
+
+    public void addFindManufacturerListener(ActionListener listenToFindManufacturerButton){
+        mRemove.addActionListener(listenToFindManufacturerButton);
     }
 
     public void displayResultMessage(String message){

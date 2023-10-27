@@ -26,7 +26,7 @@ public class CommandController {
         this.menu = menu;
 
         this.menu.addAddSouvenirListener(new AddSouvenirListener());
-
+        this.menu.addAddManufacturerListener(new AddManufacturerListener());
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -34,6 +34,17 @@ public class CommandController {
         public void actionPerformed(ActionEvent e) {
             if (addSouvenirCommand.execute()) {
                 menu.displayResultMessage("Souvenir added");
+            } else {
+                menu.displayErrorMessage("Adding error");
+            }
+        }
+    }
+
+    class AddManufacturerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (addManufacturerCommand.execute()) {
+                menu.displayResultMessage("Manufacturer added");
             } else {
                 menu.displayErrorMessage("Adding error");
             }

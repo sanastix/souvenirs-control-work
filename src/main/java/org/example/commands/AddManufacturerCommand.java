@@ -18,10 +18,10 @@ public class AddManufacturerCommand extends Command {
 
     @Override
     public boolean execute() {
-        String souvenir = "";
+        String manufacturer = menu.getManufacturer();
         try(FileWriter fileWriter = new FileWriter(manufacturersDB, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(souvenir);
+            bufferedWriter.write(manufacturer);
             bufferedWriter.newLine();
         } catch (IOException e) {
             return false;
