@@ -27,6 +27,8 @@ public class CommandController {
 
         this.menu.addAddSouvenirListener(new AddSouvenirListener());
         this.menu.addAddManufacturerListener(new AddManufacturerListener());
+        this.menu.addEditSouvenirListener(new EditSouvenirListener());
+        this.menu.addEditManufacturerListener(new EditManufacturerListener());
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -47,6 +49,28 @@ public class CommandController {
                 menu.displayResultMessage("Manufacturer added");
             } else {
                 menu.displayErrorMessage("Adding error");
+            }
+        }
+    }
+
+    class EditSouvenirListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (editSouvenirCommand.execute()) {
+                menu.displayResultMessage("Souvenir edited");
+            } else {
+                menu.displayErrorMessage("Editing error");
+            }
+        }
+    }
+
+    class EditManufacturerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (editSouvenirCommand.execute()) {
+                menu.displayResultMessage("Manufacturer edited");
+            } else {
+                menu.displayErrorMessage("Editing error");
             }
         }
     }

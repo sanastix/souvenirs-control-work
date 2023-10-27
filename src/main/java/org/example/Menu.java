@@ -2,6 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Menu extends JFrame {
 
@@ -36,9 +37,8 @@ public class Menu extends JFrame {
     public JButton mFind = new JButton("Find");
 
     JTable table = new JTable();
-    //JScrollPane scrollPane = new JScrollPane();
 
-    public JTextField textField;
+    //public JTextField textField;
 
     Menu(){
 
@@ -133,6 +133,24 @@ public class Menu extends JFrame {
             return mId.getText() +":"+ mName.getText() +":"+ mCountry.getText();
         }
         return null;
+    }
+
+    public int getSouvenirID() {
+        if (sId.getText().isEmpty()){
+            displayErrorMessage("Enter ID to find correct item");
+        } else {
+            return Integer.parseInt(sId.getText());
+        }
+        return 0;
+    }
+
+    public int gerManufacturerID() {
+        if (mId.getText().isEmpty()){
+            displayErrorMessage("Enter ID to find correct item");
+        } else {
+            return Integer.parseInt(mId.getText());
+        }
+        return 0;
     }
 
     public void addRemoveSouvenirListener(ActionListener listenToRemoveSouvenirButton){
