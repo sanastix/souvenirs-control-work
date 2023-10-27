@@ -26,7 +26,7 @@ public class EditSouvenirCommand extends Command {
                     break;
                 }
             }
-            parser.writeSouvenirsBase(souvenirsBase);
+            parser.writeSplitSouvenirsBase(souvenirsBase);
         } catch (Exception e){
             return false;
         }

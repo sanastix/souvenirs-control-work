@@ -175,7 +175,7 @@ public class Menu extends JFrame {
     }
 
     public void addFindManufacturerListener(ActionListener listenToFindManufacturerButton){
-        mRemove.addActionListener(listenToFindManufacturerButton);
+        mFind.addActionListener(listenToFindManufacturerButton);
     }
 
     public void displayResultMessage(String message){

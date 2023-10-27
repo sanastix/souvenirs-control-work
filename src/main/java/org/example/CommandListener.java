@@ -29,6 +29,8 @@ public class CommandListener {
         this.menu.addAddManufacturerListener(new AddManufacturerListener());
         this.menu.addEditSouvenirListener(new EditSouvenirListener());
         this.menu.addEditManufacturerListener(new EditManufacturerListener());
+        this.menu.addRemoveSouvenirListener(new RemoveSouvenirListener());
+        this.menu.addRemoveManufacturerListener(new RemoveManufacturerListener());
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -71,6 +73,28 @@ public class CommandListener {
                 menu.displayResultMessage("Manufacturer edited");
             } else {
                 menu.displayErrorMessage("Editing error");
+            }
+        }
+    }
+
+    class RemoveSouvenirListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (removeSouvenirCommand.execute()){
+                menu.displayResultMessage("Souvenir removed");
+            } else {
+                menu.displayErrorMessage("Removing error");
+            }
+        }
+    }
+
+    class RemoveManufacturerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (removeManufacturerCommand.execute()){
+                menu.displayResultMessage("Manufacturer and its souvenirs removed");
+            } else {
+                menu.displayErrorMessage("Removing error");
             }
         }
     }
