@@ -6,7 +6,7 @@ public class EditManufacturerCommand extends Command {
 
     private final String filePath = "Manufacturers.txt";
 
-    EditManufacturerCommand(Menu menu) {
+    public EditManufacturerCommand(Menu menu) {
         super(menu);
     }
 

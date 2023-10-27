@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
 
@@ -35,8 +36,13 @@ public class Menu extends JFrame {
     public JButton mFind = new JButton("Find");
 
     JTable table = new JTable();
+    //JScrollPane scrollPane = new JScrollPane();
 
     public JTextField textField;
+
+    Menu(){
+
+    }
 
     public void init(){
         JFrame frame = new JFrame("Менеджер сувенірів та їх виробників");
@@ -103,15 +109,44 @@ public class Menu extends JFrame {
         content.add(mFind);
 
         table.setBounds(80,300,840,300);
-        content.add(table);
-
-        Menu menu = this;
-
-        //actionlistener
+        JScrollPane scrollPane = new JScrollPane(table);
+        content.add(scrollPane);
 
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.setVisible(true);
     }
 
+    public String getSouvenir(){
+        if (sId.getText().isEmpty() || sName.getText().isEmpty() || sManDetails.getText().isEmpty() || sReleaseDate.getText().isEmpty() || sPrice.getText().isEmpty()){
+            displayResultMessage("Fill in all information");
+        } else {
+            return sId.getText() +":"+ sName.getText() +":"+sManDetails.getText() +":"+ sReleaseDate.getText() +":"+ sPrice.getText();
+        }
+        return null;
+    }
+
+    void addRemoveSouvenirListener(ActionListener listenToRemoveSouvenirButton){
+        sRemove.addActionListener(listenToRemoveSouvenirButton);
+    }
+
+    void addEditSouvenirListener(ActionListener listenToEditSouvenirButton){
+        sEdit.addActionListener(listenToEditSouvenirButton);
+    }
+
+    public void addAddSouvenirListener(ActionListener listenToAddSouvenirButton){
+        sAdd.addActionListener(listenToAddSouvenirButton);
+    }
+
+    void addFindSouvenirListener(ActionListener listenToFindSouvenirListener){
+        sFind.addActionListener(listenToFindSouvenirListener);
+    }
+
+    public void displayResultMessage(String message){
+        JOptionPane.showMessageDialog(this, message);
+    }
+
+    public void displayErrorMessage(String error) {
+        JOptionPane.showMessageDialog(this, error);
+    }
 }

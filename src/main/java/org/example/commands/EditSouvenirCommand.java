@@ -6,7 +6,7 @@ public class EditSouvenirCommand extends Command {
 
     private final String filePath = "Souvenirs.txt";
 
-    EditSouvenirCommand(Menu menu) {
+    public EditSouvenirCommand(Menu menu) {
         super(menu);
     }
 

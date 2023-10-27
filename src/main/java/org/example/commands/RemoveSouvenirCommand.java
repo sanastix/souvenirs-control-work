@@ -6,7 +6,7 @@ public class RemoveSouvenirCommand extends Command {
 
     private final String filePath = "Souvenirs.txt";
 
-    RemoveSouvenirCommand(Menu menu) {
+    public RemoveSouvenirCommand(Menu menu) {
         super(menu);
     }
 
