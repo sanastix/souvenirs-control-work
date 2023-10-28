@@ -35,10 +35,14 @@ public class Menu extends JFrame {
     private final JButton mAdd = new JButton("Add");
     private final JButton mFind = new JButton("Find");
 
+    private final JLabel removeManWithItemsLabel = new JLabel("Remove manufacturer with all its items?", JLabel.CENTER);
+    private final JButton yesButton = new JButton("Yes");
+    private final JButton noButton = new JButton("No");
+
     private final JTable table = new JTable();
 
     public void init(){
-        JFrame frame = new JFrame("Менеджер сувенірів та їх виробників");
+        JFrame frame = new JFrame("Souvenirs and manufacturers manager");
         JPanel content = new JPanel();
         frame.setSize(1000, 700);
         frame.setContentPane(content);
@@ -104,6 +108,26 @@ public class Menu extends JFrame {
         table.setBounds(80,300,840,300);
         JScrollPane scrollPane = new JScrollPane(table);
         content.add(scrollPane);
+
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
+
+    public void removeManWithItems(){
+        JFrame frame = new JFrame("Remove manufacturer with all its items?");
+        JPanel content = new JPanel();
+        frame.setSize(400, 200);
+        frame.setContentPane(content);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);   //need smth else
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        removeManWithItemsLabel.setBounds(50,50,300,30);
+        content.add(removeManWithItemsLabel);
+        yesButton.setBounds(70, 100, 100, 30);
+        content.add(yesButton);
+        noButton.setBounds(230, 100, 100, 30);
+        content.add(noButton);
 
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
@@ -176,6 +200,14 @@ public class Menu extends JFrame {
 
     public void addFindManufacturerListener(ActionListener listenToFindManufacturerButton){
         mFind.addActionListener(listenToFindManufacturerButton);
+    }
+
+    public void addYesRemoveManListener(ActionListener listenToYesRemoveManButton){
+        yesButton.addActionListener(listenToYesRemoveManButton);
+    }
+
+    public void addNoRemoveManListener(ActionListener listenToNoRemoveManButton){
+        noButton.addActionListener(listenToNoRemoveManButton);
     }
 
     public void displayResultMessage(String message){

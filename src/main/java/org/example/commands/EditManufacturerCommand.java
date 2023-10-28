@@ -26,7 +26,7 @@ public class EditManufacturerCommand extends Command {
                     break;
                 }
             }
-            parser.writeManufacturersBase(manufacturersBase);
+            parser.writeSplitManufacturersBase(manufacturersBase);
         } catch (Exception e){
             return false;
         }

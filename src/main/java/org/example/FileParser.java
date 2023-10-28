@@ -102,12 +102,24 @@ public class FileParser {
         return manufacturersBase;
     }
 
-    public void writeManufacturersBase(List<List<String>> manufacturersBase) {
+    public void writeSplitManufacturersBase(List<List<String>> manufacturersBase) {
         try(FileWriter fileWriter = new FileWriter(manufacturersDB);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             for (List<String> innerList : manufacturersBase) {
                 String joinedString = String.join(":", innerList);
                 bufferedWriter.write(joinedString);
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            menu.displayErrorMessage("Error in writing manufacturers file");
+        }
+    }
+
+    public void writeManufacturerBase(List<String> manufacturerBase){
+        try(FileWriter fileWriter = new FileWriter(souvenirsDB);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            for (String s : manufacturerBase) {
+                bufferedWriter.write(s);
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {

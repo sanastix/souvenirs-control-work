@@ -13,8 +13,9 @@ public class Main {
         EditManufacturerCommand editM = new EditManufacturerCommand(menu);
         RemoveSouvenirCommand removeS = new RemoveSouvenirCommand(menu);
         RemoveManufacturerCommand removeM = new RemoveManufacturerCommand(menu);
+        RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand = new RemoveManufacturerWithItsSouvenirsCommand(menu);
 
-        CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, menu);
+        CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, removeManufacturerWithItsSouvenirsCommand, menu);
 
         menu.init();
 

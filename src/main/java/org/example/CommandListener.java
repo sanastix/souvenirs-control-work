@@ -13,16 +13,18 @@ public class CommandListener {
     private final EditManufacturerCommand editManufacturerCommand;
     private final RemoveSouvenirCommand removeSouvenirCommand;
     private final RemoveManufacturerCommand removeManufacturerCommand;
+    private final RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand;
 
     private Menu menu;
 
-    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, Menu menu) {
+    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu) {
         this.addSouvenirCommand = addSouvenirCommand;
         this.addManufacturerCommand = addManufacturerCommand;
         this.editSouvenirCommand = editSouvenirCommand;
         this.editManufacturerCommand = editManufacturerCommand;
         this.removeSouvenirCommand = removeSouvenirCommand;
         this.removeManufacturerCommand = removeManufacturerCommand;
+        this.removeManufacturerWithItsSouvenirsCommand = removeManufacturerWithItsSouvenirsCommand;
         this.menu = menu;
 
         this.menu.addAddSouvenirListener(new AddSouvenirListener());
@@ -31,6 +33,9 @@ public class CommandListener {
         this.menu.addEditManufacturerListener(new EditManufacturerListener());
         this.menu.addRemoveSouvenirListener(new RemoveSouvenirListener());
         this.menu.addRemoveManufacturerListener(new RemoveManufacturerListener());
+        this.menu.addYesRemoveManListener(new YesRemoveManListener());
+        this.menu.addNoRemoveManListener(new NoRemoveManListener());
+
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -88,13 +93,33 @@ public class CommandListener {
         }
     }
 
-    class RemoveManufacturerListener implements ActionListener {
+    class YesRemoveManListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (removeManufacturerCommand.execute()){
+            if (removeManufacturerWithItsSouvenirsCommand.execute()) {
                 menu.displayResultMessage("Manufacturer and its souvenirs removed");
             } else {
                 menu.displayErrorMessage("Removing error");
+            }
+        }
+    }
+
+    class NoRemoveManListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (removeManufacturerCommand.execute()) {
+                menu.displayResultMessage("Manufacturer removed");
+            } else {
+                menu.displayErrorMessage("Removing error");
+            }
+        }
+    }
+
+    class RemoveManufacturerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (menu.getManufacturer() != null){
+                menu.removeManWithItems();
             }
         }
     }
