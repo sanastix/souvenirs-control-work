@@ -15,7 +15,7 @@ public class CommandListener {
     private final RemoveManufacturerCommand removeManufacturerCommand;
     private final RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand;
 
-    private Menu menu;
+    private final Menu menu;
 
     public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu) {
         this.addSouvenirCommand = addSouvenirCommand;
@@ -35,7 +35,10 @@ public class CommandListener {
         this.menu.addRemoveManufacturerListener(new RemoveManufacturerListener());
         this.menu.addYesRemoveManListener(new YesRemoveManListener());
         this.menu.addNoRemoveManListener(new NoRemoveManListener());
-
+        this.menu.addShowAllSouvenirsListener(new ShowAllSouvenirsListener());
+        this.menu.addFilterSouvenirsListener(new FilterSouvenirsListener());
+        this.menu.addShowAllManufacturersListener(new ShowAllManufacturersListener());
+        this.menu.addFilterManufacturersListener(new FilterManufacturersListener());
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -124,4 +127,31 @@ public class CommandListener {
         }
     }
 
+    class ShowAllSouvenirsListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    class FilterSouvenirsListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    class ShowAllManufacturersListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    class FilterManufacturersListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
 }
