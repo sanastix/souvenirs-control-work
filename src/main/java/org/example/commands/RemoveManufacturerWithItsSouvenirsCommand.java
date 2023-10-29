@@ -23,7 +23,6 @@ public class RemoveManufacturerWithItsSouvenirsCommand extends Command {
         List<List<String>> souvenirsBase = parser.readSplitSouvenirsBase();
         boolean removed = false;
         try {
-
             Iterator<List<String>> souvenirIterator = souvenirsBase.iterator();
             while (souvenirIterator.hasNext()) {
                 List<String> souvenir = souvenirIterator.next();
@@ -42,8 +41,9 @@ public class RemoveManufacturerWithItsSouvenirsCommand extends Command {
                         break;
                     }
                 }
-                parser.writeManufacturerBase(manufacturersBase);
+                //manufacturersBase.remove(manufacturer);
                 parser.writeSplitSouvenirsBase(souvenirsBase);
+                parser.writeManufacturerBase(manufacturersBase);
             } else {
                 menu.displayErrorMessage("No item to remove");
             }

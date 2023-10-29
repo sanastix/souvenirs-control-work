@@ -74,7 +74,6 @@ public class FileParser {
 
     public List<List<String>> readSplitManufacturersBase() {
         List<List<String>> splitManufacturersBase = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(manufacturersDB))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -85,7 +84,6 @@ public class FileParser {
         } catch (IOException e) {
             menu.displayErrorMessage("Error in reading manufacturers file");
         }
-
         return splitManufacturersBase;
     }
 
@@ -116,7 +114,7 @@ public class FileParser {
     }
 
     public void writeManufacturerBase(List<String> manufacturerBase){
-        try(FileWriter fileWriter = new FileWriter(souvenirsDB);
+        try(FileWriter fileWriter = new FileWriter(manufacturersDB);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             for (String s : manufacturerBase) {
                 bufferedWriter.write(s);
