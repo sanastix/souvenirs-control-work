@@ -1,7 +1,7 @@
 package org.example.commands;
 
 import org.example.FileParser;
-import org.example.Menu;
+import org.example.menu.Menu;
 
 import java.util.Arrays;
 import java.util.Iterator;

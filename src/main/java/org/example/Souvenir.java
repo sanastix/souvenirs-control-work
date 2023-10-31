@@ -4,14 +4,14 @@ public class Souvenir {
 
     private int id;
     private String name;
-    private String manufacturerDetails;
+    private Manufacturer manufacturer;
     private int releaseDate;
     private double price;
 
-    public Souvenir(int id, String name, String manufacturerDetails, int releaseDate, double price) {
+    public Souvenir(int id, String name, Manufacturer manufacturer, int releaseDate, double price) {
         this.id = id;
         this.name = name;
-        this.manufacturerDetails = manufacturerDetails;
+        this.manufacturer = manufacturer;
         this.releaseDate = releaseDate;
         this.price = price;
     }
@@ -24,8 +24,8 @@ public class Souvenir {
         return name;
     }
 
-    public String getManufacturerDetails() {
-        return manufacturerDetails;
+    public Manufacturer getManufacturer() {
+        return manufacturer;
     }
 
     public int getReleaseDate() {

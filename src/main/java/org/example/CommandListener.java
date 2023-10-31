@@ -1,6 +1,8 @@
 package org.example;
 
 import org.example.commands.*;
+import org.example.filters.*;
+import org.example.menu.Menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +16,16 @@ public class CommandListener {
     private final RemoveSouvenirCommand removeSouvenirCommand;
     private final RemoveManufacturerCommand removeManufacturerCommand;
     private final RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand;
+    private final ShowAllSouvenirs showAllSouvenirs;
+    private final SouvenirFilter souvenirFilter;
+    private final ManufacturerFilter manufacturerFilter;
+    private final Menu menu = new Menu();
+/*    private DataFilter dataFilter = new DataFilter();
+    private FileParser parser = new FileParser(menu);
+    private String[] souvenirColumnNames = new String[]{"id", "name", "manufacturer's name", "release year", "price"};
+    private String[] manufacturerColumnNames = new String[]{"id", "name", "country"};*/
 
-    private final Menu menu;
-
-    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu) {
+    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter) {
         this.addSouvenirCommand = addSouvenirCommand;
         this.addManufacturerCommand = addManufacturerCommand;
         this.editSouvenirCommand = editSouvenirCommand;
@@ -25,7 +33,11 @@ public class CommandListener {
         this.removeSouvenirCommand = removeSouvenirCommand;
         this.removeManufacturerCommand = removeManufacturerCommand;
         this.removeManufacturerWithItsSouvenirsCommand = removeManufacturerWithItsSouvenirsCommand;
-        this.menu = menu;
+        this.showAllSouvenirs = showAllSouvenirs;
+        this.souvenirFilter = souvenirFilter;
+        this.manufacturerFilter = manufacturerFilter;
+
+        //this.menu = menu;
 
         this.menu.addAddSouvenirListener(new AddSouvenirListener());
         this.menu.addAddManufacturerListener(new AddManufacturerListener());
@@ -130,13 +142,25 @@ public class CommandListener {
     class ShowAllSouvenirsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            showAllSouvenirs.show();
         }
     }
 
     class FilterSouvenirsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+/*            SouvenirFilter souvenirFilters = new SouvenirFilter(
+                    menu.enterSName.getText(),
+                    menu.sByManBox.getSelectedItem().toString(),
+                    menu.sByCountryBox.getSelectedItem().toString(),
+                    Integer.parseInt(menu.sByYearBox.getSelectedItem().toString()),
+                    Double.parseDouble(menu.minSPrice.getText()),
+                    Double.parseDouble(menu.maxSPrice.getText())
+            );
+
+            List<List<String>> filteredSouvenirs = dataFilter.filterSouvenirs(parser.readSplitSouvenirsBase(), souvenirFilters);
+
+            TableModel model = new TableModel(filteredSouvenirs, souvenirColumnNames);*/
 
         }
     }
@@ -144,14 +168,25 @@ public class CommandListener {
     class ShowAllManufacturersListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            //same as ShowAllSouvenirsListener ?
         }
     }
 
     class FilterManufacturersListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+/*            ManufacturerFilter manufacturerFilters = new ManufacturerFilter(
+                    menu.enterMName.getText(),
+                    menu.mByCountryBox.getSelectedItem().toString(),
+                    Double.parseDouble(menu.minMPrice.getText()),
+                    Double.parseDouble(menu.maxMPrice.getText())
+            );
 
+            List<List<String>> filteredManufacturers = dataFilter.filterManufacturers(parser.readSplitManufacturersBase(), manufacturerFilters);
+
+            // Оновлення JTable з фільтрованими виробниками
+            TableModel model = new TableModel(filteredManufacturers, manufacturerColumnNames);
+            //table.setModel(model);*/
         }
     }
 }

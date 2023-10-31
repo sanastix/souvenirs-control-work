@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.menu.Menu;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,9 +11,11 @@ public class FileParser {
 
     private final String SOUVENIRS_DB = "Souvenirs.txt";
     private final File souvenirsDB = new File(SOUVENIRS_DB);
+    public final String[] souvenirColumnNames = new String[]{"id", "name", "manufacturer's name", "release year", "price"};
 
     private final String MANUFACTURERS_DB = "Manufacturers.txt";
     private final File manufacturersDB = new File(MANUFACTURERS_DB);
+    public final String[] manufacturerColumnNames = new String[]{"id", "name", "country"};
 
     private final Menu menu;
 

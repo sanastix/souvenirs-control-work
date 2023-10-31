@@ -1,6 +1,6 @@
 package org.example.commands;
 
-import org.example.Menu;
+import org.example.menu.Menu;
 
 import java.io.BufferedWriter;
 import java.io.File;
