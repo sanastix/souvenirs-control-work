@@ -66,16 +66,11 @@ public class Menu extends JFrame {
     private final JButton showAllManufacturersButton = new JButton("Show all");
     private final JButton filterManufacturersButton = new JButton("Filter");
 
-    private final JTable table = new JTable();
     private final FileParser parser = new FileParser(this);
     private final JFrame frame = new JFrame("Souvenirs and manufacturers manager");
     private final JPanel content = new JPanel();
-
+    private final JTable table = new JTable();
     private final JScrollPane scrollPane = new JScrollPane();
-
-    //make it unique (Set?)
-    //private List<List<String>> manufacturersBAse = parser.readSplitManufacturersBase();
-    //private List<List<String>> souvenirsBase = parser.readSplitSouvenirsBase();
 
     public void updateTable(){
         scrollPane.setViewportView(table);
@@ -181,23 +176,26 @@ public class Menu extends JFrame {
         sByManufacturer.setBounds(90,310,150,20);
         content.add(sByManufacturer);
         sByManBox.setBounds(100,330,150,20);
-/*        for (List<String> manufacturer : manufacturersBAse){
-            sByManBox.addItem(manufacturer.get(1));
-        }*/
+        sByManBox.addItem(null);
+        for (String manName : parser.manufacturerNamesList()){
+            sByManBox.addItem(manName);
+        }
         content.add(sByManBox);
         sByCountry.setBounds(90,350,150,20);
         content.add(sByCountry);
         sByCountryBox.setBounds(100,370,150,20);
-/*        for (List<String> manufacturer : manufacturersBAse){
-            sByCountryBox.addItem(manufacturer.get(2));
-        }*/
+        sByCountryBox.addItem(null);
+        for (String country : parser.countryList()){
+            sByCountryBox.addItem(country);
+        }
         content.add(sByCountryBox);
         sByReleaseYear.setBounds(90,390,150,20);
         content.add(sByReleaseYear);
         sByYearBox.setBounds(100,410,150,20);
-/*        for (List<String> souvenir : souvenirsBase){
-            sByYearBox.addItem(souvenir.get(3));
-        }*/
+        sByYearBox.addItem(null);
+        for (String year : parser.releaseYearList()){
+            sByYearBox.addItem(year);
+        }
         content.add(sByYearBox);
         sByPrice.setBounds(90,430,150,20);
         content.add(sByPrice);
@@ -219,9 +217,10 @@ public class Menu extends JFrame {
         mByCountry.setBounds(90,580,150,20);
         content.add(mByCountry);
         mByCountryBox.setBounds(100,600,150,20);
-/*        for (List<String> manufacturer : manufacturersBAse){
-            mByCountryBox.addItem(manufacturer.get(2));
-        }*/
+        mByCountryBox.addItem(null);
+        for (String country : parser.countryList()){
+            mByCountryBox.addItem(country);
+        }
         content.add(mByCountryBox);
         mByPrice.setBounds(90,620,150,20);
         content.add(mByPrice);
@@ -276,6 +275,64 @@ public class Menu extends JFrame {
             displayErrorMessage("Fill in all information");
         } else {
             return mId.getText() +":"+ mName.getText() +":"+ mCountry.getText();
+        }
+        return null;
+    }
+
+    public String getSouvenirName(){
+        if (!enterSName.getText().isEmpty()){
+            return enterSName.getText();
+        }
+        return null;
+    }
+
+    public String getManNameOfBox(){
+        return (String) sByManBox.getSelectedItem();
+    }
+
+    public String getSCountryOfBox(){
+        return (String) sByCountryBox.getSelectedItem();
+    }
+
+    public String getSYearOfBox(){
+        return (String) sByYearBox.getSelectedItem();
+    }
+
+    public String getMinSPrice(){
+        if (!minSPrice.getText().isEmpty()){
+            return minSPrice.getText();
+        }
+        return null;
+    }
+
+    public String getMaxSPrice(){
+        if (!maxSPrice.getText().isEmpty()){
+            return maxSPrice.getText();
+        }
+        return null;
+    }
+
+    public String getManufacturerName(){
+        if (!enterMName.getText().isEmpty()){
+            return enterMName.getText();
+        }
+        return null;
+    }
+
+    public String getMCountryOfBox(){
+        return (String) mByCountryBox.getSelectedItem();
+    }
+
+    public String getMinMPrice(){
+        if (!minMPrice.getText().isEmpty()){
+            return minMPrice.getText();
+        }
+        return null;
+    }
+
+    public String getMaxMPrice(){
+        if (!maxMPrice.getText().isEmpty()){
+            return maxMPrice.getText();
         }
         return null;
     }

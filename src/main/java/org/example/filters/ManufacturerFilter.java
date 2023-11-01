@@ -1,18 +1,29 @@
 package org.example.filters;
 
+import org.example.menu.Menu;
+
+import javax.swing.table.DefaultTableModel;
+
 public class ManufacturerFilter {
 
+    private final Menu menu = new Menu();
     private String nameFilter;
+
     private String countryFilter;
     private double minPriceFilter;
     private double maxPriceFilter;
 
-/*    public ManufacturerFilter(String nameFilter, String countryFilter, double minPriceFilter, double maxPriceFilter) {
-        this.nameFilter = nameFilter;
-        this.countryFilter = countryFilter;
-        this.minPriceFilter = minPriceFilter;
-        this.maxPriceFilter = maxPriceFilter;
-    }*/
+    public void filter() {
+        DefaultTableModel newModel = new DefaultTableModel();
+
+        //initialize parameters
+        //iterate through database
+        //add to model if not null parameters equals
+
+
+
+        menu.showResultTable(newModel, "Filtered table");
+    }
 
     public String getNameFilter() {
         return nameFilter;
@@ -45,5 +56,4 @@ public class ManufacturerFilter {
     public void setMaxPriceFilter(double maxPriceFilter) {
         this.maxPriceFilter = maxPriceFilter;
     }
-
 }

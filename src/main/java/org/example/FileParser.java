@@ -2,9 +2,7 @@ package org.example;
 
 import org.example.menu.Menu;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FileParser {
 
@@ -126,5 +124,29 @@ public class FileParser {
         } catch (IOException e) {
             menu.displayErrorMessage("Error in writing manufacturers file");
         }
+    }
+
+    public Set<String> manufacturerNamesList(){
+        Set<String> namesList = new HashSet<>();
+        for (List<String> manufacturer : readSplitManufacturersBase()){
+            namesList.add(manufacturer.get(1));
+        }
+        return namesList;
+    }
+
+    public Set<String> countryList(){
+        Set<String> countryList = new HashSet<>();
+        for (List<String> manufacturer : readSplitManufacturersBase()){
+            countryList.add(manufacturer.get(2));
+        }
+        return countryList;
+    }
+
+    public Set<String> releaseYearList(){
+        Set<String> yearsList = new HashSet<>();
+        for (List<String> souvenir : readSplitSouvenirsBase()){
+            yearsList.add(souvenir.get(3));
+        }
+        return yearsList;
     }
 }

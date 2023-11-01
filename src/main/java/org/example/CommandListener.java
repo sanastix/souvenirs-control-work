@@ -17,9 +17,9 @@ public class CommandListener {
     private final RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand;
     private final ShowAllSouvenirs showAllSouvenirs;
     private final ShowAllManufacturers showAllManufacturers;
-    private final Menu menu;
     private final SouvenirFilter souvenirFilter;
     private final ManufacturerFilter manufacturerFilter;
+    private final Menu menu;
 
 
     public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, ShowAllManufacturers showAllManufacturers, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter) {
@@ -154,19 +154,7 @@ public class CommandListener {
     class FilterSouvenirsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-/*            SouvenirFilter souvenirFilters = new SouvenirFilter(
-                    menu.enterSName.getText(),
-                    menu.sByManBox.getSelectedItem().toString(),
-                    menu.sByCountryBox.getSelectedItem().toString(),
-                    Integer.parseInt(menu.sByYearBox.getSelectedItem().toString()),
-                    Double.parseDouble(menu.minSPrice.getText()),
-                    Double.parseDouble(menu.maxSPrice.getText())
-            );
-
-            List<List<String>> filteredSouvenirs = dataFilter.filterSouvenirs(parser.readSplitSouvenirsBase(), souvenirFilters);
-
-            TableModel model = new TableModel(filteredSouvenirs, souvenirColumnNames);*/
-
+            souvenirFilter.filter();
         }
 
     }
@@ -174,18 +162,7 @@ public class CommandListener {
     class FilterManufacturersListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-/*            ManufacturerFilter manufacturerFilters = new ManufacturerFilter(
-                    menu.enterMName.getText(),
-                    menu.mByCountryBox.getSelectedItem().toString(),
-                    Double.parseDouble(menu.minMPrice.getText()),
-                    Double.parseDouble(menu.maxMPrice.getText())
-            );
-
-            List<List<String>> filteredManufacturers = dataFilter.filterManufacturers(parser.readSplitManufacturersBase(), manufacturerFilters);
-
-            // Оновлення JTable з фільтрованими виробниками
-            TableModel model = new TableModel(filteredManufacturers, manufacturerColumnNames);
-            //table.setModel(model);*/
+            manufacturerFilter.filter();
         }
     }
 }

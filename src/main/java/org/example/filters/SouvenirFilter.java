@@ -1,7 +1,12 @@
 package org.example.filters;
 
+import org.example.menu.Menu;
+
+import javax.swing.table.DefaultTableModel;
+
 public class SouvenirFilter {
 
+    private final Menu menu = new Menu();
     private String nameFilter;
     private String manufacturerFilter;
     private String countryFilter;
@@ -9,15 +14,17 @@ public class SouvenirFilter {
     private double minPriceFilter;
     private double maxPriceFilter;
 
-/*    public SouvenirFilter(String nameFilter, String manufacturerFilter, String countryFilter, int releaseYearFilter, double minPriceFilter, double maxPriceFilter) {
-        this.nameFilter = nameFilter;
-        this.manufacturerFilter = manufacturerFilter;
-        this.countryFilter = countryFilter;
-        this.releaseYearFilter = releaseYearFilter;
-        this.minPriceFilter = minPriceFilter;
-        this.maxPriceFilter = maxPriceFilter;
-    }*/
+    public void filter(){
+        DefaultTableModel newModel = new DefaultTableModel();
 
+        //initialize parameters
+        //iterate through database
+        //add to model if not null parameters equals
+
+
+
+        menu.showResultTable(newModel, "Filtered table");
+    }
 
     public String getNameFilter() {
         return nameFilter;
