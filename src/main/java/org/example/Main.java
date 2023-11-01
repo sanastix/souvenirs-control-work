@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.commands.*;
 import org.example.filters.ManufacturerFilter;
+import org.example.filters.ShowAllManufacturers;
 import org.example.filters.ShowAllSouvenirs;
 import org.example.filters.SouvenirFilter;
 import org.example.menu.Menu;
@@ -19,10 +20,11 @@ public class Main {
         RemoveManufacturerCommand removeM = new RemoveManufacturerCommand(menu);
         RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand = new RemoveManufacturerWithItsSouvenirsCommand(menu);
         ShowAllSouvenirs showAllSouvenirs = new ShowAllSouvenirs();
+        ShowAllManufacturers showAllManufacturers = new ShowAllManufacturers();
         SouvenirFilter souvenirFilter = new SouvenirFilter();
         ManufacturerFilter manufacturerFilter = new ManufacturerFilter();
 
-        CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, removeManufacturerWithItsSouvenirsCommand, menu, showAllSouvenirs, souvenirFilter, manufacturerFilter);
+        CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, removeManufacturerWithItsSouvenirsCommand, menu, showAllSouvenirs, showAllManufacturers, souvenirFilter, manufacturerFilter);
 
         menu.init();
 

@@ -1,8 +1,8 @@
 package org.example.menu;
 
 import org.example.FileParser;
-
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -66,17 +66,55 @@ public class Menu extends JFrame {
     private final JButton showAllManufacturersButton = new JButton("Show all");
     private final JButton filterManufacturersButton = new JButton("Filter");
 
-    final JTable table = new JTable();
-    //private final TableFrame tableFrame = new TableFrame();
-
+    private final JTable table = new JTable();
     private final FileParser parser = new FileParser(this);
+    private final JFrame frame = new JFrame("Souvenirs and manufacturers manager");
+    private final JPanel content = new JPanel();
+
+    private final JScrollPane scrollPane = new JScrollPane();
+
     //make it unique (Set?)
     //private List<List<String>> manufacturersBAse = parser.readSplitManufacturersBase();
     //private List<List<String>> souvenirsBase = parser.readSplitSouvenirsBase();
 
+    public void updateTable(){
+        scrollPane.setViewportView(table);
+        content.add(scrollPane);
+        DefaultTableModel newModel = new DefaultTableModel();
+        Object[] column = parser.souvenirColumnNames;
+        newModel.setColumnIdentifiers(column);
+        List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();
+        Object[] row;
+        for (int i = 0; i < column.length; i++){
+            row = souvenirsBase.get(i).split(":");
+            newModel.addRow(row);
+        }
+        table.setModel(newModel);
+    }
+
+    public void showResultTable(DefaultTableModel newModel, String tableName) {
+        JFrame jFrame = new JFrame(tableName);
+        JPanel jPanel = new JPanel();
+        jFrame.setSize(700, 600);
+        jFrame.setContentPane(jPanel);
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+
+        JTable jTable = new JTable();
+        JScrollPane jScrollPane = new JScrollPane();
+
+        jScrollPane.setBounds(0,0,700,600);
+        jTable.setBounds(0,0,700,600);
+
+        jScrollPane.setViewportView(jTable);
+        jPanel.add(jScrollPane);
+        jTable.setModel(newModel);
+
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setLayout(null);
+        jFrame.setVisible(true);
+    }
+
     public void init(){
-        JFrame frame = new JFrame("Souvenirs and manufacturers manager");
-        JPanel content = new JPanel();
         frame.setSize(1000, 800);
         frame.setContentPane(content);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -196,21 +234,14 @@ public class Menu extends JFrame {
         filterManufacturersButton.setBounds(190,670,80,20);
         content.add(filterManufacturersButton);
 
+        scrollPane.setBounds(300,260,640,430);
         table.setBounds(300,260,640,430);
-        TableFrame tableFrame = new TableFrame();
-        if (tableFrame.getTableModel() != null){
-            table.setModel(tableFrame.getTableModel());
-        }
-        //JScrollPane scrollPane = new JScrollPane(table);
-        //table.setFillsViewportHeight(true);
-        //content.add(scrollPane);
-        content.add(table);
+        updateTable();
 
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.setVisible(true);
     }
-
     public void removeManWithItems(){
         JFrame frame = new JFrame("Remove manufacturer with all its items?");
         JPanel content = new JPanel();

@@ -3,7 +3,6 @@ package org.example;
 import org.example.commands.*;
 import org.example.filters.*;
 import org.example.menu.Menu;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,15 +16,13 @@ public class CommandListener {
     private final RemoveManufacturerCommand removeManufacturerCommand;
     private final RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand;
     private final ShowAllSouvenirs showAllSouvenirs;
+    private final ShowAllManufacturers showAllManufacturers;
+    private final Menu menu;
     private final SouvenirFilter souvenirFilter;
     private final ManufacturerFilter manufacturerFilter;
-    private final Menu menu = new Menu();
-/*    private DataFilter dataFilter = new DataFilter();
-    private FileParser parser = new FileParser(menu);
-    private String[] souvenirColumnNames = new String[]{"id", "name", "manufacturer's name", "release year", "price"};
-    private String[] manufacturerColumnNames = new String[]{"id", "name", "country"};*/
 
-    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter) {
+
+    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, ShowAllManufacturers showAllManufacturers, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter) {
         this.addSouvenirCommand = addSouvenirCommand;
         this.addManufacturerCommand = addManufacturerCommand;
         this.editSouvenirCommand = editSouvenirCommand;
@@ -34,10 +31,11 @@ public class CommandListener {
         this.removeManufacturerCommand = removeManufacturerCommand;
         this.removeManufacturerWithItsSouvenirsCommand = removeManufacturerWithItsSouvenirsCommand;
         this.showAllSouvenirs = showAllSouvenirs;
+        this.showAllManufacturers = showAllManufacturers;
         this.souvenirFilter = souvenirFilter;
         this.manufacturerFilter = manufacturerFilter;
 
-        //this.menu = menu;
+        this.menu = menu;
 
         this.menu.addAddSouvenirListener(new AddSouvenirListener());
         this.menu.addAddManufacturerListener(new AddManufacturerListener());
@@ -48,8 +46,8 @@ public class CommandListener {
         this.menu.addYesRemoveManListener(new YesRemoveManListener());
         this.menu.addNoRemoveManListener(new NoRemoveManListener());
         this.menu.addShowAllSouvenirsListener(new ShowAllSouvenirsListener());
-        this.menu.addFilterSouvenirsListener(new FilterSouvenirsListener());
         this.menu.addShowAllManufacturersListener(new ShowAllManufacturersListener());
+        this.menu.addFilterSouvenirsListener(new FilterSouvenirsListener());
         this.menu.addFilterManufacturersListener(new FilterManufacturersListener());
     }
 
@@ -146,6 +144,13 @@ public class CommandListener {
         }
     }
 
+    class ShowAllManufacturersListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showAllManufacturers.show();
+        }
+    }
+
     class FilterSouvenirsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -163,13 +168,7 @@ public class CommandListener {
             TableModel model = new TableModel(filteredSouvenirs, souvenirColumnNames);*/
 
         }
-    }
 
-    class ShowAllManufacturersListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //same as ShowAllSouvenirsListener ?
-        }
     }
 
     class FilterManufacturersListener implements ActionListener{
