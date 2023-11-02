@@ -21,8 +21,8 @@ public class Main {
         RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand = new RemoveManufacturerWithItsSouvenirsCommand(menu);
         ShowAllSouvenirs showAllSouvenirs = new ShowAllSouvenirs();
         ShowAllManufacturers showAllManufacturers = new ShowAllManufacturers();
-        SouvenirFilter souvenirFilter = new SouvenirFilter();
-        ManufacturerFilter manufacturerFilter = new ManufacturerFilter();
+        SouvenirFilter souvenirFilter = new SouvenirFilter(menu);
+        ManufacturerFilter manufacturerFilter = new ManufacturerFilter(menu);
 
         CommandListener controller = new CommandListener(addS, addM, editS, editM, removeS, removeM, removeManufacturerWithItsSouvenirsCommand, menu, showAllSouvenirs, showAllManufacturers, souvenirFilter, manufacturerFilter);
 

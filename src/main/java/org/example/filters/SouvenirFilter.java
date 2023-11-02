@@ -1,78 +1,93 @@
 package org.example.filters;
 
+import org.example.FileParser;
 import org.example.menu.Menu;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.util.Objects;
 
-public class SouvenirFilter {
+public class SouvenirFilter extends Filter {
 
-    private final Menu menu = new Menu();
-    private String nameFilter;
-    private String manufacturerFilter;
-    private String countryFilter;
-    private int releaseYearFilter;
-    private double minPriceFilter;
-    private double maxPriceFilter;
+    private final FileParser parser = new FileParser(menu);
 
-    public void filter(){
+    public SouvenirFilter(Menu menu) {
+        super(menu);
+    }
+
+    @Override
+    public void filter() {
         DefaultTableModel newModel = new DefaultTableModel();
+        Object[] column = parser.souvenirColumnNames;
+        newModel.setColumnIdentifiers(column);
 
-        //initialize parameters
-        //iterate through database
-        //add to model if not null parameters equals
+        String nameFilter = menu.getSouvenirName();
+        String manufacturerFilter = menu.getManNameOfBox();
+        String countryFilter = menu.getSCountryOfBox();
 
+        int releaseYearFilter;
+        double minPriceFilter;
+        double maxPriceFilter;
 
+        if (menu.getSYearOfBox() != null && !menu.getSYearOfBox().isEmpty()) {
+            releaseYearFilter = Integer.parseInt(menu.getSYearOfBox());
+        } else {
+            releaseYearFilter = 0;
+        }
+        if (menu.getMinSPrice() != null && !menu.getMinSPrice().isEmpty()) {
+            minPriceFilter = Double.parseDouble(menu.getMinSPrice());
+        } else {
+            minPriceFilter = 0;
+        }
+        if (menu.getMaxSPrice() != null && !menu.getMaxSPrice().isEmpty()) {
+            maxPriceFilter = Double.parseDouble(menu.getMaxSPrice());
+        } else {
+            maxPriceFilter = 0;
+        }
 
+        List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();
+        List<String> manufacturersBase = parser.readManufacturersBase().stream().sorted().toList();
+        Object[] row;
+        if (!souvenirsBase.isEmpty()){
+            for (String souvenir : souvenirsBase) {
+                String[] souvenirParts = souvenir.split(":");
+
+                String name = souvenirParts[1];
+                String manufacturer = souvenirParts[2];
+                int releaseYear = Integer.parseInt(souvenirParts[3]);
+                double price = Double.parseDouble(souvenirParts[4]);
+
+                String country = null;
+                for (String s : manufacturersBase){
+                    String[] mParts = s.split(":");
+                    if (countryFilter != null && manufacturer.equals(mParts[1]) && countryFilter.equals(mParts[2])){
+                        country = mParts[2];
+                        break;
+                    }
+                }
+
+                boolean passFilters = true;
+
+                if (nameFilter != null && !name.equals(nameFilter)) {
+                    passFilters = false;
+                } else if (manufacturerFilter != null && !manufacturer.equals(manufacturerFilter)) {
+                    passFilters = false;
+                } else if (countryFilter != null && !country.equals(countryFilter)){
+                    passFilters = false;
+                } else if (releaseYearFilter != 0 && releaseYear != releaseYearFilter) {
+                    passFilters = false;
+                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter != 0 && price > maxPriceFilter)) {
+                    passFilters = false;
+                }
+
+                if (passFilters) {
+                    row = souvenirParts;
+                    newModel.addRow(row);
+                }
+            }
+        }
         menu.showResultTable(newModel, "Filtered table");
-    }
 
-    public String getNameFilter() {
-        return nameFilter;
     }
-
-    public void setNameFilter(String nameFilter) {
-        this.nameFilter = nameFilter;
-    }
-
-    public String getManufacturerFilter() {
-        return manufacturerFilter;
-    }
-
-    public void setManufacturerFilter(String manufacturerFilter) {
-        this.manufacturerFilter = manufacturerFilter;
-    }
-
-    public String getCountryFilter() {
-        return countryFilter;
-    }
-
-    public void setCountryFilter(String countryFilter) {
-        this.countryFilter = countryFilter;
-    }
-
-    public int getReleaseYearFilter() {
-        return releaseYearFilter;
-    }
-
-    public void setReleaseYearFilter(int releaseYearFilter) {
-        this.releaseYearFilter = releaseYearFilter;
-    }
-
-    public double getMinPriceFilter() {
-        return minPriceFilter;
-    }
-
-    public void setMinPriceFilter(double minPriceFilter) {
-        this.minPriceFilter = minPriceFilter;
-    }
-
-    public double getMaxPriceFilter() {
-        return maxPriceFilter;
-    }
-
-    public void setMaxPriceFilter(double maxPriceFilter) {
-        this.maxPriceFilter = maxPriceFilter;
-    }
-
 
 }

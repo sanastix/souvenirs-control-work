@@ -16,21 +16,28 @@ public class EditSouvenirCommand extends Command {
 
     @Override
     public boolean execute() {
-        List<String> editedSouvenir = Arrays.stream(menu.getSouvenir().split(":")).toList();
+        String souvenirItem = menu.getSouvenir();
         List<List<String>> souvenirsBase = parser.readSplitSouvenirsBase();
+        boolean edited = false;
         try{
+            List<String> editedSouvenir = Arrays.stream(souvenirItem.split(":")).toList();
             for (List<String> souvenir : souvenirsBase) {
                 if (souvenir.get(0).equals(editedSouvenir.get(0))){
                     souvenirsBase.add(souvenirsBase.indexOf(souvenir), editedSouvenir);
                     souvenirsBase.remove(souvenir);
+                    edited = true;
                     break;
                 }
             }
-            parser.writeSplitSouvenirsBase(souvenirsBase);
+            if (edited){
+                parser.writeSplitSouvenirsBase(souvenirsBase);
+            } else {
+                menu.displayErrorMessage("No item to edit");
+            }
         } catch (Exception e){
-            return false;
+            menu.displayErrorMessage(String.valueOf(e));
         }
-        return true;
+        return edited;
     }
 
 }

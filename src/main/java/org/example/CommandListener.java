@@ -156,7 +156,6 @@ public class CommandListener {
         public void actionPerformed(ActionEvent e) {
             souvenirFilter.filter();
         }
-
     }
 
     class FilterManufacturersListener implements ActionListener{

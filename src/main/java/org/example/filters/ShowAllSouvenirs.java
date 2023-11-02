@@ -16,9 +16,11 @@ public class ShowAllSouvenirs {
         newModel.setColumnIdentifiers(column);
         List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();
         Object[] row;
-        for (int i = 0; i < column.length; i++){
-            row = souvenirsBase.get(i).split(":");
-            newModel.addRow(row);
+        if (!souvenirsBase.isEmpty()){
+            for (String s : souvenirsBase) {
+                row = s.split(":");
+                newModel.addRow(row);
+            }
         }
         menu.showResultTable(newModel, "Souvenirs database");
     }

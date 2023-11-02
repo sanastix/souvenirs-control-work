@@ -1,59 +1,86 @@
 package org.example.filters;
 
+import org.example.FileParser;
 import org.example.menu.Menu;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
-public class ManufacturerFilter {
+public class ManufacturerFilter extends Filter {
 
-    private final Menu menu = new Menu();
-    private String nameFilter;
+    private final FileParser parser = new FileParser(menu);
 
-    private String countryFilter;
-    private double minPriceFilter;
-    private double maxPriceFilter;
+    public ManufacturerFilter(Menu menu) {
+        super(menu);
+    }
 
+    @Override
     public void filter() {
         DefaultTableModel newModel = new DefaultTableModel();
+        Object[] column = parser.manufacturerColumnNames;
+        newModel.setColumnIdentifiers(column);
 
-        //initialize parameters
-        //iterate through database
-        //add to model if not null parameters equals
+        String nameFilter = menu.getManufacturerName();
+        String countryFilter = menu.getMCountryOfBox();
 
+        double minPriceFilter;
+        double maxPriceFilter;
 
+        if (menu.getMinMPrice() != null && !menu.getMinMPrice().isEmpty()) {
+            minPriceFilter = Double.parseDouble(menu.getMinMPrice());
+        } else {
+            minPriceFilter = 0;
+        }
+        if (menu.getMaxMPrice() != null && !menu.getMaxMPrice().isEmpty()) {
+            maxPriceFilter = Double.parseDouble(menu.getMaxMPrice());
+        } else {
+            maxPriceFilter = 0;
+        }
 
+        List<String> manufacturersBase = parser.readManufacturersBase().stream().sorted().toList();
+        List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();
+        Object[] row;
+        if (!manufacturersBase.isEmpty()){
+            for (String manufacturer : manufacturersBase){
+                String[] manufacturerParts = manufacturer.split(":");
+
+                double price = 0;
+
+                String name = manufacturerParts[1];
+                String country = manufacturerParts[2];
+                double maxPrice = Double.MIN_VALUE;
+                double minPrice = Double.MAX_VALUE;
+
+                for (String s : souvenirsBase){
+                    String[] sParts = s.split(":");
+                    if (sParts[2].equals(name)){
+                        price = Double.parseDouble(sParts[4]);
+                        if (price > maxPrice) {
+                            maxPrice = price;
+                        }
+                        if (price < minPrice) {
+                            minPrice = price;
+                        }
+                    }
+                }
+
+                boolean passFilters = true;
+
+                if (nameFilter != null && !name.equals(nameFilter)){
+                    passFilters = false;
+                } else if (countryFilter != null && !country.equals(countryFilter)){
+                    passFilters = false;
+                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter != 0 && price > maxPriceFilter)) {
+                    passFilters = false;
+                }
+
+                if (passFilters){
+                    row = manufacturerParts;
+                    newModel.addRow(row);
+                }
+            }
+        }
         menu.showResultTable(newModel, "Filtered table");
     }
 
-    public String getNameFilter() {
-        return nameFilter;
-    }
-
-    public void setNameFilter(String nameFilter) {
-        this.nameFilter = nameFilter;
-    }
-
-    public String getCountryFilter() {
-        return countryFilter;
-    }
-
-    public void setCountryFilter(String countryFilter) {
-        this.countryFilter = countryFilter;
-    }
-
-    public double getMinPriceFilter() {
-        return minPriceFilter;
-    }
-
-    public void setMinPriceFilter(double minPriceFilter) {
-        this.minPriceFilter = minPriceFilter;
-    }
-
-    public double getMaxPriceFilter() {
-        return maxPriceFilter;
-    }
-
-    public void setMaxPriceFilter(double maxPriceFilter) {
-        this.maxPriceFilter = maxPriceFilter;
-    }
 }

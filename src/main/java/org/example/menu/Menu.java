@@ -42,29 +42,30 @@ public class Menu extends JFrame {
 
     private final JLabel filterSouvenirs = new JLabel("Filter souvenirs");
     private final JLabel sByName = new JLabel("by name:");
-    final JTextField enterSName = new JTextField();
+    private final JTextField enterSName = new JTextField(10);
     private final JLabel sByManufacturer = new JLabel("by manufacturer: ");
-    final JComboBox sByManBox = new JComboBox();
+    private final JComboBox sByManBox = new JComboBox();
     private final JLabel sByCountry = new JLabel("by country: ");
-    final JComboBox sByCountryBox = new JComboBox();
+    private final JComboBox sByCountryBox = new JComboBox();
     private final JLabel sByReleaseYear = new JLabel("by release year: ");
-    final JComboBox sByYearBox = new JComboBox();
+    private final JComboBox sByYearBox = new JComboBox();
     private final JLabel sByPrice = new JLabel("by price: ");
-    final JTextField minSPrice = new JTextField();
-    final JTextField maxSPrice = new JTextField();
+    private final JTextField minSPrice = new JTextField(10);
+    private final JTextField maxSPrice = new JTextField(10);
     private final JButton showAllSouvenirsButton = new JButton("Show all");
     private final JButton filterSouvenirsButton = new JButton("Filter");
 
     private final JLabel filterManufacturers = new JLabel("Filter manufacturers");
     private final JLabel mByName = new JLabel("by name:");
-    final JTextField enterMName = new JTextField();
+    private final JTextField enterMName = new JTextField(10);
     private final JLabel mByCountry = new JLabel("by country: ");
-    final JComboBox mByCountryBox = new JComboBox();
+    private final JComboBox mByCountryBox = new JComboBox();
     private final JLabel mByPrice = new JLabel("by price: ");
-    final JTextField minMPrice = new JTextField();
-    final JTextField maxMPrice = new JTextField();
+    private final JTextField minMPrice = new JTextField(10);
+    private final JTextField maxMPrice = new JTextField(10);
     private final JButton showAllManufacturersButton = new JButton("Show all");
     private final JButton filterManufacturersButton = new JButton("Filter");
+    private final JButton showAllManufacturersWithItsSouvenirsButton = new JButton("Show database");
 
     private final FileParser parser = new FileParser(this);
     private final JFrame frame = new JFrame("Souvenirs and manufacturers manager");
@@ -80,9 +81,11 @@ public class Menu extends JFrame {
         newModel.setColumnIdentifiers(column);
         List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();
         Object[] row;
-        for (int i = 0; i < column.length; i++){
-            row = souvenirsBase.get(i).split(":");
-            newModel.addRow(row);
+        if (!souvenirsBase.isEmpty()){
+            for (String s : souvenirsBase) {
+                row = s.split(":");
+                newModel.addRow(row);
+            }
         }
         table.setModel(newModel);
     }
@@ -232,9 +235,13 @@ public class Menu extends JFrame {
         content.add(showAllManufacturersButton);
         filterManufacturersButton.setBounds(190,670,80,20);
         content.add(filterManufacturersButton);
+        showAllManufacturersWithItsSouvenirsButton.setBounds(80, 700, 190, 20);
+        content.add(showAllManufacturersWithItsSouvenirsButton);
 
-        scrollPane.setBounds(300,260,640,430);
-        table.setBounds(300,260,640,430);
+        scrollPane.setBounds(300,290,640,430);
+        JLabel tableLabel = new JLabel("Initial souvenirs table", JLabel.CENTER);
+        tableLabel.setBounds(450, 260, 300, 20);
+        content.add(tableLabel);
         updateTable();
 
         frame.setLocationRelativeTo(null);
@@ -287,15 +294,24 @@ public class Menu extends JFrame {
     }
 
     public String getManNameOfBox(){
-        return (String) sByManBox.getSelectedItem();
+        if (sByManBox.getSelectedItem() != null){
+            return (String) sByManBox.getSelectedItem();
+        }
+        return null;
     }
 
     public String getSCountryOfBox(){
-        return (String) sByCountryBox.getSelectedItem();
+        if (sByCountryBox.getSelectedItem() != null){
+            return (String) sByCountryBox.getSelectedItem();
+        }
+        return null;
     }
 
     public String getSYearOfBox(){
-        return (String) sByYearBox.getSelectedItem();
+        if (sByYearBox.getSelectedItem() != null){
+            return (String) sByYearBox.getSelectedItem();
+        }
+        return null;
     }
 
     public String getMinSPrice(){
@@ -320,7 +336,10 @@ public class Menu extends JFrame {
     }
 
     public String getMCountryOfBox(){
-        return (String) mByCountryBox.getSelectedItem();
+        if (mByCountryBox.getSelectedItem() != null){
+            return (String) mByCountryBox.getSelectedItem();
+        }
+        return null;
     }
 
     public String getMinMPrice(){

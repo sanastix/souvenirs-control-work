@@ -16,21 +16,28 @@ public class EditManufacturerCommand extends Command {
 
     @Override
     public boolean execute() {
-        List<String> editedManufacturer = Arrays.stream(menu.getManufacturer().split(":")).toList();
+        String manufacturerItem = menu.getManufacturer();
         List<List<String>> manufacturersBase = parser.readSplitManufacturersBase();
+        boolean edited = false;
         try {
+            List<String> editedManufacturer = Arrays.stream(manufacturerItem.split(":")).toList();
             for (List<String> manufacturer : manufacturersBase) {
                 if (manufacturer.get(0).equals(editedManufacturer.get(0))){
                     manufacturersBase.add(manufacturersBase.indexOf(manufacturer), editedManufacturer);
                     manufacturersBase.remove(manufacturer);
+                    edited = true;
                     break;
                 }
             }
-            parser.writeSplitManufacturersBase(manufacturersBase);
+            if (edited){
+                parser.writeSplitManufacturersBase(manufacturersBase);
+            } else {
+                menu.displayErrorMessage("No item to edit");
+            }
         } catch (Exception e){
-            return false;
+            menu.displayErrorMessage(String.valueOf(e));
         }
-        return true;
+        return edited;
     }
 
 }

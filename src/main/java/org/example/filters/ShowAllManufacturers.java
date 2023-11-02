@@ -16,9 +16,11 @@ public class ShowAllManufacturers {
         newModel.setColumnIdentifiers(column);
         List<String> manufacturersBase = parser.readManufacturersBase().stream().sorted().toList();
         Object[] row;
-        for (int i = 0; i < column.length; i++) {
-            row = manufacturersBase.get(i).split(":");
-            newModel.addRow(row);
+        if (!manufacturersBase.isEmpty()){
+            for (String s : manufacturersBase) {
+                row = s.split(":");
+                newModel.addRow(row);
+            }
         }
         menu.showResultTable(newModel, "Manufacturers database");
     }
