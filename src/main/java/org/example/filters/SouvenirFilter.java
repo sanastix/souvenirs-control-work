@@ -25,24 +25,30 @@ public class SouvenirFilter extends Filter {
         String manufacturerFilter = menu.getManNameOfBox();
         String countryFilter = menu.getSCountryOfBox();
 
-        int releaseYearFilter;
-        double minPriceFilter;
-        double maxPriceFilter;
+        int releaseYearFilter = 0;
+        double minPriceFilter = 0;
+        double maxPriceFilter = 0;
 
         if (menu.getSYearOfBox() != null && !menu.getSYearOfBox().isEmpty()) {
-            releaseYearFilter = Integer.parseInt(menu.getSYearOfBox());
-        } else {
-            releaseYearFilter = 0;
+            try {
+                releaseYearFilter = Integer.parseInt(menu.getSYearOfBox());
+            } catch (Exception e){
+                menu.displayErrorMessage("Incorrect input");
+            }
         }
         if (menu.getMinSPrice() != null && !menu.getMinSPrice().isEmpty()) {
-            minPriceFilter = Double.parseDouble(menu.getMinSPrice());
-        } else {
-            minPriceFilter = 0;
+            try {
+                minPriceFilter = Double.parseDouble(menu.getMinSPrice());
+            }catch (Exception e){
+                menu.displayErrorMessage("Incorrect input");
+            }
         }
         if (menu.getMaxSPrice() != null && !menu.getMaxSPrice().isEmpty()) {
-            maxPriceFilter = Double.parseDouble(menu.getMaxSPrice());
-        } else {
-            maxPriceFilter = 0;
+            try {
+                maxPriceFilter = Double.parseDouble(menu.getMaxSPrice());
+            }catch (Exception e){
+                menu.displayErrorMessage("Incorrect input");
+            }
         }
 
         List<String> souvenirsBase = parser.readSouvenirsBase().stream().sorted().toList();

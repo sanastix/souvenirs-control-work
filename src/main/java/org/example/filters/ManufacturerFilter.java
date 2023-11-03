@@ -24,18 +24,22 @@ public class ManufacturerFilter extends Filter {
         String nameFilter = menu.getManufacturerName();
         String countryFilter = menu.getMCountryOfBox();
 
-        double minPriceFilter;
-        double maxPriceFilter;
+        double minPriceFilter = 0;
+        double maxPriceFilter = 0;
 
         if (menu.getMinMPrice() != null && !menu.getMinMPrice().isEmpty()) {
-            minPriceFilter = Double.parseDouble(menu.getMinMPrice());
-        } else {
-            minPriceFilter = 0;
+            try {
+                minPriceFilter = Double.parseDouble(menu.getMinMPrice());
+            } catch (Exception e){
+                menu.displayErrorMessage("Incorrect input");
+            }
         }
         if (menu.getMaxMPrice() != null && !menu.getMaxMPrice().isEmpty()) {
-            maxPriceFilter = Double.parseDouble(menu.getMaxMPrice());
-        } else {
-            maxPriceFilter = 0;
+            try {
+                maxPriceFilter = Double.parseDouble(menu.getMaxMPrice());
+            } catch (Exception e){
+                menu.displayErrorMessage("Incorrect input");
+            }
         }
 
         List<String> manufacturersBase = parser.readManufacturersBase().stream().sorted().toList();
@@ -71,7 +75,7 @@ public class ManufacturerFilter extends Filter {
                     passFilters = false;
                 } else if (countryFilter != null && !Objects.equals(country,countryFilter)){
                     passFilters = false;
-                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter == 0 && price > maxPriceFilter)) {
+                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter != 0 && price > maxPriceFilter)) {
                     passFilters = false;
                 }
 
