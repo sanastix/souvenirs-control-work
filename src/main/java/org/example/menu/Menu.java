@@ -8,24 +8,14 @@ import java.util.List;
 
 public class Menu extends JFrame {
 
-    private final JLabel souvenirsLabel = new JLabel("Souvenirs", JLabel.CENTER);
-    private final JLabel sIdLabel = new JLabel("id: ");
     private final JTextField sId = new JTextField(10);
-    private final JLabel sNameLabel = new JLabel("name: ");
     private final JTextField sName = new JTextField(10);
-    private final JLabel sManDetailsLabel = new JLabel("manufacturer's name: ");
     private final JTextField sManDetails = new JTextField(10);
-    private final JLabel sReleaseDateLabel = new JLabel("release year: ");
     private final JTextField sReleaseDate = new JTextField(10);
-    private final JLabel sPriceLabel = new JLabel("price: ");
     private final JTextField sPrice = new JTextField(10);
 
-    private final JLabel manufacturersLabel = new JLabel("Manufacturers", JLabel.CENTER);
-    private final JLabel mIdLabel = new JLabel("id: ");
     private final JTextField mId = new JTextField(10);
-    private final JLabel mNameLabel = new JLabel("name: ");
     private final JTextField mName = new JTextField(10);
-    private final JLabel mCountryLabel = new JLabel("country: ");
     private final JTextField mCountry = new JTextField(10);
 
     private final JButton sRemove = new JButton("Remove");
@@ -40,27 +30,17 @@ public class Menu extends JFrame {
     private final JButton yesButton = new JButton("Yes");
     private final JButton noButton = new JButton("No");
 
-    private final JLabel filterSouvenirs = new JLabel("Filter souvenirs");
-    private final JLabel sByName = new JLabel("by name:");
     private final JTextField enterSName = new JTextField(10);
-    private final JLabel sByManufacturer = new JLabel("by manufacturer: ");
     private final JComboBox sByManBox = new JComboBox();
-    private final JLabel sByCountry = new JLabel("by country: ");
     private final JComboBox sByCountryBox = new JComboBox();
-    private final JLabel sByReleaseYear = new JLabel("by release year: ");
     private final JComboBox sByYearBox = new JComboBox();
-    private final JLabel sByPrice = new JLabel("by price: ");
     private final JTextField minSPrice = new JTextField(10);
     private final JTextField maxSPrice = new JTextField(10);
     private final JButton showAllSouvenirsButton = new JButton("Show all");
     private final JButton filterSouvenirsButton = new JButton("Filter");
 
-    private final JLabel filterManufacturers = new JLabel("Filter manufacturers");
-    private final JLabel mByName = new JLabel("by name:");
     private final JTextField enterMName = new JTextField(10);
-    private final JLabel mByCountry = new JLabel("by country: ");
     private final JComboBox mByCountryBox = new JComboBox();
-    private final JLabel mByPrice = new JLabel("by price: ");
     private final JTextField minMPrice = new JTextField(10);
     private final JTextField maxMPrice = new JTextField(10);
     private final JButton showAllManufacturersButton = new JButton("Show all");
@@ -68,10 +48,11 @@ public class Menu extends JFrame {
     private final JButton showAllManufacturersWithItsSouvenirsButton = new JButton("Show database");
 
     private final FileParser parser = new FileParser(this);
-    private final JFrame frame = new JFrame("Souvenirs and manufacturers manager");
     private final JPanel content = new JPanel();
     private final JTable table = new JTable();
     private final JScrollPane scrollPane = new JScrollPane();
+
+    public final JFrame removeFrame = new JFrame("Remove manufacturer with all its items?");
 
     public void updateTable(){
         scrollPane.setViewportView(table);
@@ -113,10 +94,18 @@ public class Menu extends JFrame {
     }
 
     public void init(){
+        JFrame frame = new JFrame("Souvenirs and manufacturers manager");
         frame.setSize(1000, 800);
         frame.setContentPane(content);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        JLabel souvenirsLabel = new JLabel("Souvenirs", JLabel.CENTER);
+        JLabel sIdLabel = new JLabel("id: ");
+        JLabel sNameLabel = new JLabel("name: ");
+        JLabel sManDetailsLabel = new JLabel("manufacturer's name: ");
+        JLabel sReleaseDateLabel = new JLabel("release year: ");
+        JLabel sPriceLabel = new JLabel("price: ");
 
         souvenirsLabel.setBounds(160,20,200,20);
         frame.add(souvenirsLabel);
@@ -140,6 +129,11 @@ public class Menu extends JFrame {
         content.add(sPriceLabel);
         sPrice.setBounds(250,140,200,20);
         content.add(sPrice);
+
+        JLabel manufacturersLabel = new JLabel("Manufacturers", JLabel.CENTER);
+        JLabel mIdLabel = new JLabel("id: ");
+        JLabel mNameLabel = new JLabel("name: ");
+        JLabel mCountryLabel = new JLabel("country: ");
 
         manufacturersLabel.setBounds(620, 20,200,20);
         content.add(manufacturersLabel);
@@ -169,6 +163,13 @@ public class Menu extends JFrame {
         content.add(mEdit);
         mAdd.setBounds(760, 180,70,20);
         content.add(mAdd);
+
+        JLabel filterSouvenirs = new JLabel("Filter souvenirs");
+        JLabel sByName = new JLabel("by name:");
+        JLabel sByManufacturer = new JLabel("by manufacturer: ");
+        JLabel sByCountry = new JLabel("by country: ");
+        JLabel sByReleaseYear = new JLabel("by release year: ");
+        JLabel sByPrice = new JLabel("by price: ");
 
         filterSouvenirs.setBounds(60,260,150,20);
         content.add(filterSouvenirs);
@@ -211,6 +212,11 @@ public class Menu extends JFrame {
         filterSouvenirsButton.setBounds(190,480,80,20);
         content.add(filterSouvenirsButton);
 
+        JLabel filterManufacturers = new JLabel("Filter manufacturers");
+        JLabel mByName = new JLabel("by name:");
+        JLabel mByCountry = new JLabel("by country: ");
+        JLabel mByPrice = new JLabel("by price: ");
+
         filterManufacturers.setBounds(60,530,150,20);
         content.add(filterManufacturers);
         mByName.setBounds(90,560,100,20);
@@ -239,7 +245,7 @@ public class Menu extends JFrame {
         content.add(showAllManufacturersWithItsSouvenirsButton);
 
         scrollPane.setBounds(300,290,640,430);
-        JLabel tableLabel = new JLabel("Initial souvenirs table", JLabel.CENTER);
+        JLabel tableLabel = new JLabel("Initial souvenirs base", JLabel.CENTER);
         tableLabel.setBounds(450, 260, 300, 20);
         content.add(tableLabel);
         updateTable();
@@ -249,11 +255,9 @@ public class Menu extends JFrame {
         frame.setVisible(true);
     }
     public void removeManWithItems(){
-        JFrame frame = new JFrame("Remove manufacturer with all its items?");
         JPanel content = new JPanel();
-        frame.setSize(400, 200);
-        frame.setContentPane(content);
-        //frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);   //need smth else
+        removeFrame.setSize(400, 200);
+        removeFrame.setContentPane(content);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
         removeManWithItemsLabel.setBounds(50,50,300,30);
@@ -263,9 +267,9 @@ public class Menu extends JFrame {
         noButton.setBounds(230, 100, 100, 30);
         content.add(noButton);
 
-        frame.setLocationRelativeTo(null);
-        frame.setLayout(null);
-        frame.setVisible(true);
+        removeFrame.setLocationRelativeTo(null);
+        removeFrame.setLayout(null);
+        removeFrame.setVisible(true);
     }
 
     public String getSouvenir(){
@@ -329,7 +333,7 @@ public class Menu extends JFrame {
     }
 
     public String getManufacturerName(){
-        if (!enterMName.getText().isEmpty()){
+        if (!enterMName.getText().trim().isEmpty()){
             return enterMName.getText();
         }
         return null;
@@ -402,6 +406,10 @@ public class Menu extends JFrame {
 
     public void addFilterManufacturersListener(ActionListener listenToFilterManufacturersButton){
         filterManufacturersButton.addActionListener(listenToFilterManufacturersButton);
+    }
+
+    public void addShowAllManufacturersWithItsSouvenirsListener(ActionListener listenToShowDatabaseButton){
+        showAllManufacturersWithItsSouvenirsButton.addActionListener(listenToShowDatabaseButton);
     }
 
     public void displayResultMessage(String message){

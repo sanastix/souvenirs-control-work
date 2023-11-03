@@ -72,11 +72,11 @@ public class SouvenirFilter extends Filter {
                     passFilters = false;
                 } else if (manufacturerFilter != null && !manufacturer.equals(manufacturerFilter)) {
                     passFilters = false;
-                } else if (countryFilter != null && !country.equals(countryFilter)){
+                } else if (countryFilter != null && !Objects.equals(country, countryFilter)){
                     passFilters = false;
                 } else if (releaseYearFilter != 0 && releaseYear != releaseYearFilter) {
                     passFilters = false;
-                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter != 0 && price > maxPriceFilter)) {
+                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter == 0 && price > maxPriceFilter)) {
                     passFilters = false;
                 }
 

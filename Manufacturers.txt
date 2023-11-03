@@ -1,4 +1,4 @@
-2:Mono:Ukraine
 1:Privat:Ukraine
-3:Rada:Ukraine
-4:Universal:Poland
+3:Rada:Poland
+4:Lvivske:Poland
+2:Mono:Ukraine

@@ -19,10 +19,11 @@ public class CommandListener {
     private final ShowAllManufacturers showAllManufacturers;
     private final SouvenirFilter souvenirFilter;
     private final ManufacturerFilter manufacturerFilter;
+    private final ShowAllDatabase showAllDatabase;
     private final Menu menu;
 
 
-    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, ShowAllManufacturers showAllManufacturers, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter) {
+    public CommandListener(AddSouvenirCommand addSouvenirCommand, AddManufacturerCommand addManufacturerCommand, EditSouvenirCommand editSouvenirCommand, EditManufacturerCommand editManufacturerCommand, RemoveSouvenirCommand removeSouvenirCommand, RemoveManufacturerCommand removeManufacturerCommand, RemoveManufacturerWithItsSouvenirsCommand removeManufacturerWithItsSouvenirsCommand, Menu menu, ShowAllSouvenirs showAllSouvenirs, ShowAllManufacturers showAllManufacturers, SouvenirFilter souvenirFilter, ManufacturerFilter manufacturerFilter, ShowAllDatabase showAllDatabase) {
         this.addSouvenirCommand = addSouvenirCommand;
         this.addManufacturerCommand = addManufacturerCommand;
         this.editSouvenirCommand = editSouvenirCommand;
@@ -34,6 +35,7 @@ public class CommandListener {
         this.showAllManufacturers = showAllManufacturers;
         this.souvenirFilter = souvenirFilter;
         this.manufacturerFilter = manufacturerFilter;
+        this.showAllDatabase = showAllDatabase;
 
         this.menu = menu;
 
@@ -49,6 +51,7 @@ public class CommandListener {
         this.menu.addShowAllManufacturersListener(new ShowAllManufacturersListener());
         this.menu.addFilterSouvenirsListener(new FilterSouvenirsListener());
         this.menu.addFilterManufacturersListener(new FilterManufacturersListener());
+        this.menu.addShowAllManufacturersWithItsSouvenirsListener(new ShowAllDatabaseListener());
     }
 
     class AddSouvenirListener implements ActionListener {
@@ -162,6 +165,13 @@ public class CommandListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             manufacturerFilter.filter();
+        }
+    }
+
+    class ShowAllDatabaseListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showAllDatabase.show();
         }
     }
 }

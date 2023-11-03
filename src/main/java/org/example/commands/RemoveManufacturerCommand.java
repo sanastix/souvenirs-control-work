@@ -31,6 +31,7 @@ public class RemoveManufacturerCommand extends Command {
             } else {
                 menu.displayErrorMessage("No item to remove");
             }
+            menu.removeFrame.dispose();
         } catch (Exception e){
             menu.displayErrorMessage(String.valueOf(e));
         }

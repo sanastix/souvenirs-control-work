@@ -41,12 +41,11 @@ public class RemoveManufacturerWithItsSouvenirsCommand extends Command {
                         break;
                     }
                 }
-                //manufacturersBase.remove(manufacturer);
-                parser.writeSplitSouvenirsBase(souvenirsBase);
-                parser.writeManufacturerBase(manufacturersBase);
             } else {
                 menu.displayErrorMessage("No item to remove");
             }
+            parser.writeSplitSouvenirsBase(souvenirsBase);
+            parser.writeManufacturerBase(manufacturersBase);
         } catch (Exception e){
             menu.displayErrorMessage(String.valueOf(e));
         }

@@ -5,6 +5,7 @@ import org.example.menu.Menu;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Objects;
 
 public class ManufacturerFilter extends Filter {
 
@@ -68,9 +69,9 @@ public class ManufacturerFilter extends Filter {
 
                 if (nameFilter != null && !name.equals(nameFilter)){
                     passFilters = false;
-                } else if (countryFilter != null && !country.equals(countryFilter)){
+                } else if (countryFilter != null && !Objects.equals(country,countryFilter)){
                     passFilters = false;
-                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter != 0 && price > maxPriceFilter)) {
+                } else if ((minPriceFilter != 0 && price < minPriceFilter) || (maxPriceFilter == 0 && price > maxPriceFilter)) {
                     passFilters = false;
                 }
 

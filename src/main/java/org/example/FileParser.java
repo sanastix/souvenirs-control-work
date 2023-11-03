@@ -14,6 +14,8 @@ public class FileParser {
     private final File manufacturersDB = new File(MANUFACTURERS_DB);
     public final String[] manufacturerColumnNames = new String[]{"id", "name", "country"};
 
+    public final String[] databaseColumnNames = new String[]{"№", "souvenir", "manufacturer", "country", "release date", "price"};
+
     private final Menu menu;
 
     public FileParser(Menu menu) {
